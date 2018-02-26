@@ -21,6 +21,14 @@
     <![endif]-->
     <style type="text/css">
     body {min-height: 1000px;padding-top: 70px;}
+    li { padding-left: 10px;}
+    .example ol {list-style: none; counter-reset: li}
+  .example ol li::before {content: counter(li); color: red;
+    display: inline-block; width: 1em; margin-left: -1em}
+  .example ol li {counter-increment: li}
+
+  .example ol.better li::before {margin-left: -1.5em;
+    margin-right: 0.5em; text-align: right; direction: rtl}
     </style>
   </head>
   <body>
@@ -48,14 +56,7 @@
       <div class="container">
         <div class="row">
           <ol>
-            <li><h3>h3. Bootstrap heading</h3>Lorem ipsum dolor sit amet</li>
-            <li>Consectetur adipiscing elit</li>
-            <li>Integer molestie lorem at massa</li>
-            <li>Facilisis in pretium nisl aliquet</li>
-            <li>Nulla volutpat aliquam velit</li>
-            <li>Faucibus porta lacus fringilla vel</li>
-            <li>Aenean sit amet erat nunc</li>
-            <li>Eget porttitor lorem</li>
+            <li><h4>h3. Bootstrap heading <small>Secondary text</small> </h4></li>
           </ol>
           <!-- <ul class="list-group">
             <li class="list-group-item">Cras justo odio</li>
