@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui@1/lib/style.css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- <mt-button @click.native="handleClick">按钮</mt-button> -->
+      <mt-tab-container :active.sync="active">
+      <mt-tab-container-item id="tab-container1">
+      <mt-cell v-for="n in 10" :title="'tab-container1 ' + $index"></mt-cell>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="tab-container2">
+      <mt-cell v-for="n in 5" :title="'tab-container2 ' + $index"></mt-cell>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="tab-container3">
+      <mt-cell v-for="n in 7" :title="'tab-container3 ' + $index"></mt-cell>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="tab-container4">
+      <mt-cell v-for="n in 7" :title="'tab-container4 ' + $index"></mt-cell>
+      </mt-tab-container-item>
+      </mt-tab-container>
+      
+      <mt-tabbar :selected.sync="selected">
+      <mt-tab-item id="外卖">
+      <img slot="icon" src="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png">
+      外卖
+      </mt-tab-item>
+      <mt-tab-item id="订单">
+      <img slot="icon" src="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png">
+      订单
+      </mt-tab-item>
+      <mt-tab-item id="发现">
+      <img slot="icon" src="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png">
+      发现
+      </mt-tab-item>
+      <mt-tab-item id="我的">
+      <img slot="icon" src="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png">
+      我的
+      </mt-tab-item>
+      </mt-tabbar>
+    </div>
+  </body>
+  <!-- 先引入 Vue -->
+  <script src="https://unpkg.com/vue@1/dist/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/mint-ui@1/lib/index.js"></script>
+  <script>
+  new Vue({
+  el: '#app',
+  methods: {
+  handleClick: function() {
+  this.$toast('Hello world!')
+  }
+  }
+  })
+  </script>
+</html>
