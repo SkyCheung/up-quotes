@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <title>U pin Quotes</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <!-- <link href="navbar-fixed-top.css" rel="stylesheet"> -->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="css/dropzone.css" rel="stylesheet">
+    <style type="text/css">
+    body {min-height: 1000px;padding-top: 70px;}
+        .dropzone{
+            margin-left:9px;
+            min-height:150px;
+            border: 1px dashed #aaaaaa;
+        }
+        .dropzone .dz-default.dz-message{
+            font-size: 18px;
+            background:none;
+            width: 350px;
+            margin-left: -180px;
+            margin-top: -30px;
+            top: 50%;
+            left: 50%;
+        }
+        .dropzone .dz-default.dz-message .upload-icon{
+            margin-top: 10px;
+            top: 50%;
+            left: 50%;
+        }
+        .dropzone .dz-default.dz-message span{display: block;}
+    </style>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">U - Quotes</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">上载报价</a></li>
+          </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+      <div class="container">
+        <form id="form" class="form-horizontal" role="form" method="post" action="">
+          <div class="form-group">
+            <label  class="col-sm-2 control-label no-padding-right"></label>
+            <div class="col-sm-4 dropzone"></div>
+            <div class="col-sm-4 text-danger msg"></div>
+          </div>
+        </form>  
+      </div> <!-- /container -->
+      <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+      <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+      <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="js/dropzone.js"></script>
+      <script type = "text/javascript">
+        jQuery(function($) {
+            try {
+                Dropzone.autoDiscover = false;
+                var dropzone = new Dropzone(".dropzone", {
+                    url: "{:U('saveAttachment')}",
+                    paramName: "attachment",
+                    // The name that will be used to transfer the file
+                    maxFilesize: 3,// MB
+                    addRemoveLinks: true,
+                    dictDefaultMessage: '<span class="bolder"> Select or drop files here</span><i class="upload-icon ace-icon fa fa-upload blue"></i>',
+                    dictResponseError: 'Error while uploading file!'
+                });
+                dropzone.on("success",
+                function(file, data) {
+                    $(".msg").text('');
+                    if (data.status) {
+                        $("#form").append('<input id="' + data.info.name + '" type="hidden" name="attachment[]" value="' + data.info.savename + '">')
+                    } else {
+                        $(".msg").text(data.info);
+                    }
+                });
+                dropzone.on("error",
+                function(file) {
+                    $(".msg").text(file);
+                });
+                dropzone.on("removedfile",
+                function(file) {
+                    var name = file.name;
+                    var id = name.substr(0, name.lastIndexOf('.'));
+                    $("#" + id).remove();
+                });
+                $(document).one('ajaxloadstart.page',
+                function(e) {
+                    try {
+                        dropzone.destroy();
+                    } catch(e) {}
+                });
+            } catch(e) {
+                //console.log('Dropzone.js does not support older browsers!');
+            }
+        }); 
+   </script>/
+    </body>
+  </html>
