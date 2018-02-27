@@ -22,7 +22,6 @@
     <style type="text/css">
     body {min-height: 1000px;padding-top: 70px;}
     .quotes li a {margin-right:10px;}
-    
     </style>
   </head>
   <body>
@@ -41,7 +40,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#about">上载报价</a></li>
           </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -61,9 +60,9 @@
         <script type="text/javascript">
           $.get('list.php',function(data){
             var li = '';
-            for (x in data){
-              li += '<li><h5><a href="quotes.html?id='+data[x].id+'">'+data[x].title+'</a><small>更新时间:'+data[x].ctime+'</small> </h5></li>';
-            }
+            $.each(data, function(i,n){
+              li += '<li><h5><a href="quotes.html?id='+n.id+'">'+n.title+'</a><small>更新时间:'+n.ctime+'</small> </h5></li>';
+            });
             $("#list").append(li);
           },'json');
         </script>
